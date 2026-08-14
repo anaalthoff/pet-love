@@ -8,6 +8,7 @@
    4. Elementos reutilizáveis (container, botões, títulos de seção)
    5. Cabeçalho e navegação
    6. Seção de destaque (banner)
+   7. Seção sobre e indicadores
    ========================================================================== */
 
 /* ==========================================================================
@@ -199,6 +200,41 @@ p {
   max-width: var(--largura-maxima);
   margin: 0 auto;
   padding: 0 24px;
+}
+
+/* Espaçamento padrão das seções da página */
+.secao {
+  padding: 100px 0;
+}
+
+.secao--creme {
+  background-color: var(--cor-creme-claro);
+}
+
+.secao__cabecalho {
+  max-width: 680px;
+  margin: 0 auto 60px;
+  text-align: center;
+}
+
+.secao__titulo {
+  margin: 18px 0 16px;
+}
+
+.secao__descricao {
+  font-size: 1.08rem;
+}
+
+/* Animação de entrada aplicada quando o elemento aparece na tela. O seletor depende da classe .js, incluída pelo próprio JavaScript, para que o conteúdo continue visível caso o script não seja carregado. */
+.js [data-revelar] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.js [data-revelar].revelado {
+  opacity: 1;
+  transform: none;
 }
 
 /* Etiqueta arredondada usada acima dos títulos das seções */
@@ -798,5 +834,229 @@ p {
 
   .banner__acoes .botao {
     width: 100%;
+  }
+}
+
+
+/* ==========================================================================
+   7. SEÇÃO SOBRE E INDICADORES
+   O bloco principal usa CSS Grid (imagem + texto) e a lista de diferenciais usa Flexbox. Os indicadores formam uma grade de quatro colunas com números animados pelo JavaScript.
+   ========================================================================== */
+.sobre {
+  padding-top: 40px;
+}
+
+.sobre__conteudo {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  align-items: center;
+  gap: 80px;
+}
+
+/* --- Composição de imagens --- */
+.sobre__midia {
+  position: relative;
+  padding-bottom: 60px;
+}
+
+.sobre__moldura {
+  overflow: hidden;
+  border: 8px solid var(--cor-branco);
+  border-radius: var(--raio-g);
+  box-shadow: var(--sombra-media);
+}
+
+.sobre__moldura img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sobre__moldura--principal {
+  aspect-ratio: 4 / 3;
+}
+
+/* A segunda foto é sobreposta à primeira, novamente com position: absolute */
+.sobre__moldura--secundaria {
+  position: absolute;
+  right: -24px;
+  bottom: 0;
+  width: 48%;
+  aspect-ratio: 4 / 3;
+  box-shadow: var(--sombra-forte);
+}
+
+.sobre__selo-ano {
+  position: absolute;
+  bottom: 78px;
+  left: -22px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 116px;
+  height: 116px;
+  border-radius: 50%;
+  background-color: var(--cor-marrom);
+  color: var(--cor-branco);
+  text-align: center;
+  line-height: 1.1;
+  box-shadow: var(--sombra-forte);
+}
+
+.sobre__selo-ano span {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.sobre__selo-ano strong {
+  font-family: var(--fonte-destaque);
+  font-size: 1.9rem;
+  font-weight: 800;
+}
+
+/* --- Texto e diferenciais --- */
+.sobre__texto p {
+  margin-bottom: 16px;
+}
+
+.sobre__diferenciais {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-top: 34px;
+}
+
+.sobre__diferenciais li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.sobre__icone {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--raio-p);
+  background-color: var(--cor-rosa-claro);
+  color: var(--cor-rosa-escuro);
+  font-size: 1.5rem;
+}
+
+.sobre__diferenciais h3 {
+  margin-bottom: 2px;
+  font-size: 1.15rem;
+  color: var(--cor-marrom);
+}
+
+.sobre__diferenciais p {
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.6;
+}
+
+/* --- Indicadores --- */
+.indicadores {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 90px;
+  padding: 44px 32px;
+  border-radius: var(--raio-g);
+  background: linear-gradient(135deg, var(--cor-marrom) 0%, var(--cor-marrom-escuro) 100%);
+  box-shadow: var(--sombra-media);
+}
+
+.indicador {
+  text-align: center;
+  color: var(--cor-branco);
+}
+
+.indicador+.indicador {
+  border-left: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.indicador i {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1.8rem;
+  color: var(--cor-rosa);
+}
+
+.indicador__numero {
+  display: block;
+  font-family: var(--fonte-destaque);
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.indicador__rotulo {
+  font-size: 0.95rem;
+  color: var(--cor-creme);
+}
+
+/* --- 7.1 Responsividade da seção sobre --- */
+@media (max-width: 980px) {
+
+  .sobre__conteudo {
+    grid-template-columns: 1fr;
+    gap: 70px;
+  }
+
+  .sobre__midia {
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .indicadores {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 36px 24px;
+    margin-top: 70px;
+  }
+
+  .indicador:nth-child(odd) {
+    border-left: none;
+  }
+}
+
+@media (max-width: 560px) {
+
+  .secao {
+    padding: 70px 0;
+  }
+
+  .sobre__midia {
+    padding-bottom: 0;
+  }
+
+  /* No celular a segunda foto sai da sobreposição para não cobrir a principal */
+  .sobre__moldura--secundaria {
+    display: none;
+  }
+
+  .sobre__selo-ano {
+    bottom: -18px;
+    left: auto;
+    right: 16px;
+    width: 92px;
+    height: 92px;
+  }
+
+  .sobre__selo-ano strong {
+    font-size: 1.5rem;
+  }
+
+  .indicadores {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 36px 24px;
+  }
+
+  .indicador+.indicador {
+    padding-top: 32px;
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
   }
 }
