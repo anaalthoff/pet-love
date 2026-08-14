@@ -32,7 +32,7 @@
   <!-- Atalho de acessibilidade para quem navega pelo teclado -->
   <a class="pular-conteudo" href="#inicio">Pular para o conteúdo</a>
 
-  <!-- ====================== CABEÇALHO ====================== -->
+  <!-- CABEÇALHO -->
   <header class="cabecalho" id="cabecalho">
     <div class="container cabecalho__conteudo">
 
@@ -66,8 +66,103 @@
   <!-- Camada escura exibida atrás do menu no celular -->
   <div class="fundo-menu" id="fundo-menu" hidden></div>
 
-  <main id="inicio">
-    <!-- As seções da página serão construídas nas próximas etapas -->
+  <main>
+
+    <!-- SEÇÃO DE DESTAQUE -->
+    <section class="banner" id="inicio">
+
+      <!-- Formas e corações decorativos, posicionados com position: absolute -->
+      <span class="banner__forma banner__forma--um" aria-hidden="true"></span>
+      <span class="banner__forma banner__forma--dois" aria-hidden="true"></span>
+      <i class="bi bi-heart-fill banner__coracao banner__coracao--um" aria-hidden="true"></i>
+      <i class="bi bi-heart-fill banner__coracao banner__coracao--dois" aria-hidden="true"></i>
+      <i class="bi bi-heart-fill banner__coracao banner__coracao--tres" aria-hidden="true"></i>
+
+      <div class="container banner__conteudo">
+
+        <div class="banner__texto">
+          <p class="etiqueta">
+            <i class="bi bi-stars" aria-hidden="true"></i>
+            Petshop e clínica veterinária em Florianópolis
+          </p>
+
+          <h1 class="banner__titulo">
+            Todo cuidado é uma forma de 
+            <span class="destaque">carinho</span>
+          </h1>
+
+          <p class="banner__descricao">
+            Banho e tosa, consultas, vacinas e hospedagem em um só lugar. Uma equipe que trata cada
+            animal como se fosse da família, com hora marcada e sem estresse.
+          </p>
+
+          <div class="banner__acoes">
+            <a href="#contato" class="botao botao--primario">
+              <i class="bi bi-calendar2-heart" aria-hidden="true"></i>
+              Agendar horário
+            </a>
+            <a href="#servicos" class="botao botao--secundario">
+              <i class="bi bi-list-check" aria-hidden="true"></i>
+              Conhecer os serviços
+            </a>
+          </div>
+
+          <ul class="banner__vantagens">
+            <li>
+              <i class="bi bi-patch-check-fill" aria-hidden="true"></i>
+              Equipe formada em veterinária
+            </li>
+            <li>
+              <i class="bi bi-truck" aria-hidden="true"></i>
+              Leva e traz sem custo extra
+            </li>
+            <li>
+              <i class="bi bi-clock-fill" aria-hidden="true"></i>
+              Seg. a sáb., das 8h às 19h
+            </li>
+          </ul>
+        </div>
+
+        <!-- Composição de imagem com elementos sobrepostos -->
+        <div class="banner__midia">
+          <div class="banner__moldura">
+            <img src="assets/img/pets.webp"
+              alt="Um gato e um cachorro felizes lado a lado em um gramado ao entardecer" width="1200"
+              height="630">
+          </div>
+
+          <div class="banner__selo" aria-hidden="true">
+            <i class="bi bi-heart-fill"></i>
+          </div>
+
+          <div class="cartao-flutuante cartao-flutuante--nota">
+            <i class="bi bi-star-fill" aria-hidden="true"></i>
+            <div>
+              <strong class="cartao-flutuante__valor">4,9 de 5</strong>
+              <span class="cartao-flutuante__rotulo">862 avaliações</span>
+            </div>
+          </div>
+
+          <div class="cartao-flutuante cartao-flutuante--pets">
+            <i class="bi bi-emoji-heart-eyes-fill" aria-hidden="true"></i>
+            <div>
+              <strong class="cartao-flutuante__valor">+12 mil</strong>
+              <span class="cartao-flutuante__rotulo">pets já atendidos</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Onda que faz a transição visual para a próxima seção -->
+      <svg class="banner__onda" viewBox="0 0 1440 110" preserveAspectRatio="none" aria-hidden="true"
+        focusable="false">
+        <path fill="currentColor"
+          d="M0,64 C240,110 480,110 720,80 C960,50 1200,50 1440,72 L1440,110 L0,110 Z"></path>
+      </svg>
+
+    </section>
+
   </main>
 
   <script src="assets/js/script.js"></script>
