@@ -7,7 +7,7 @@
    3. Tipografia
    4. Elementos reutilizáveis (container, botões, títulos de seção)
    5. Cabeçalho e navegação
-   6. Responsividade do cabeçalho
+   6. Seção de destaque (banner)
    ========================================================================== */
 
 /* ==========================================================================
@@ -201,6 +201,21 @@ p {
   padding: 0 24px;
 }
 
+/* Etiqueta arredondada usada acima dos títulos das seções */
+.etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: var(--raio-total);
+  background-color: var(--cor-rosa-claro);
+  color: var(--cor-rosa-escuro);
+  font-family: var(--fonte-destaque);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
 /* --- Botões --- */
 .botao {
   display: inline-flex;
@@ -391,10 +406,7 @@ p {
 }
 
 
-/* ==========================================================================
-   6. RESPONSIVIDADE DO CABEÇALHO
-   Abaixo de 900px a navegação vira um painel lateral acionado pelo botão.
-   ========================================================================== */
+/* --- 5.1 Responsividade do cabeçalho: abaixo de 900px a navegação vira um painel lateral acionado pelo botão --- */
 @media (max-width: 900px) {
 
   :root {
