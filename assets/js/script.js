@@ -5,10 +5,14 @@
    1. Utilitários
    2. Menu de navegação no celular
    3. Efeito do cabeçalho ao rolar a página
+   4. Animação de entrada dos elementos
+   5. Contadores dos indicadores
    ========================================================================== */
 
 (function () {
   'use strict';
+
+  /* A classe .js que libera as animações do CSS é aplicada por um script curto dentro do <head>, antes da página ser desenhada, para evitar que o conteúdo pisque na tela. */
 
   /* ========================================================================
      1. UTILITÁRIOS
@@ -114,11 +118,51 @@
 
 
   /* ========================================================================
+     4. ANIMAÇÃO DE ENTRADA DOS ELEMENTOS
+     Usa IntersectionObserver para revelar cada elemento marcado com o atributo data-revelar assim que ele entra na área visível da tela.
+     ======================================================================== */
+  function iniciarRevelacao() {
+    var elementos = pegarTodos('[data-revelar]');
+
+    if (elementos.length === 0) {
+      return;
+    }
+
+    // Navegadores antigos sem IntersectionObserver: mostra tudo de uma vez
+    if (!('IntersectionObserver' in window)) {
+      elementos.forEach(function (elemento) {
+        elemento.classList.add('revelado');
+      });
+      return;
+    }
+
+    var observador = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (entrada) {
+        if (entrada.isIntersecting) {
+          entrada.target.classList.add('revelado');
+          // uma vez revelado, o elemento não precisa mais ser observado
+          observador.unobserve(entrada.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+    elementos.forEach(function (elemento) {
+      observador.observe(elemento);
+    });
+  }
+
+
+  
+
+
+  /* ========================================================================
      INICIALIZAÇÃO
      ======================================================================== */
   document.addEventListener('DOMContentLoaded', function () {
     iniciarMenu();
     iniciarCabecalho();
+    iniciarRevelacao();
+    iniciarContadores();
   });
 
 })();
