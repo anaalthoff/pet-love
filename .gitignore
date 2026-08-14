@@ -1,0 +1,22 @@
+# Sistema operacional
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Editores / IDEs
+.vscode/
+.idea/
+*.code-workspace
+*.swp
+
+# Arquivos temporários e de build
+*.log
+*.tmp
+node_modules/
+dist/
+
+# Pacote gerado para a entrega do desafio
+*.zip
+*.rar
