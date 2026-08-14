@@ -1,0 +1,138 @@
+/* ==========================================================================
+   PET LOVE PETSHOP — Folha de estilo principal
+   --------------------------------------------------------------------------
+   SUMÁRIO
+   1. Variáveis da identidade visual
+   2. Reset e configurações base
+   3. Tipografia
+   4. Elementos reutilizáveis (container, botões, títulos de seção)
+   5. Cabeçalho e navegação
+   6. Responsividade do cabeçalho
+   ========================================================================== */
+
+/* ==========================================================================
+   1. VARIÁVEIS DA IDENTIDADE VISUAL
+   Cores retiradas do logotipo da marca. As variações claras e escuras foram
+   derivadas delas para dar contraste sem fugir da paleta original.
+   ========================================================================== */
+:root {
+  /* Paleta da marca */
+  --cor-rosa: #e87ac9;
+  --cor-rosa-escuro: #c9459f;
+  --cor-rosa-claro: #fbe8f6;
+  --cor-marrom: #7f513b;
+  --cor-marrom-escuro: #5b3928;
+  --cor-creme: #e6d1b9;
+  --cor-creme-claro: #f9f2e9;
+  --cor-grafite: #3e393a;
+  --cor-grafite-suave: #6d6667;
+  --cor-branco: #ffffff;
+
+  /* Tipografia */
+  --fonte-corpo: 'Roboto', 'Segoe UI', Arial, sans-serif;
+  --fonte-destaque: 'Baloo 2', 'Trebuchet MS', 'Segoe UI', sans-serif;
+
+  /* Arredondamentos */
+  --raio-p: 12px;
+  --raio-m: 20px;
+  --raio-g: 32px;
+  --raio-total: 999px;
+
+  /* Sombras */
+  --sombra-suave: 0 6px 20px rgba(62, 57, 58, 0.08);
+  --sombra-media: 0 14px 34px rgba(62, 57, 58, 0.12);
+  --sombra-forte: 0 22px 50px rgba(127, 81, 59, 0.20);
+
+  /* Medidas e movimento */
+  --largura-maxima: 1180px;
+  --altura-cabecalho: 88px;
+  --transicao: 0.3s ease;
+}
+
+
+/* ==========================================================================
+   2. RESET E CONFIGURAÇÕES BASE
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* impede que o cabeçalho fixo cubra o título da seção ao navegar pelos links */
+  scroll-padding-top: var(--altura-cabecalho);
+}
+
+body {
+  font-family: var(--fonte-corpo);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--cor-grafite);
+  background-color: var(--cor-branco);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Trava a rolagem do fundo enquanto o menu do celular está aberto */
+body.menu-aberto {
+  overflow: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Contorno visível para navegação por teclado */
+:focus-visible {
+  outline: 3px solid var(--cor-rosa);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Respeita quem prefere menos animação no sistema */
+@media (prefers-reduced-motion: reduce) {
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
