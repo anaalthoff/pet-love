@@ -12,8 +12,7 @@
 
 /* ==========================================================================
    1. VARIÁVEIS DA IDENTIDADE VISUAL
-   Cores retiradas do logotipo da marca. As variações claras e escuras foram
-   derivadas delas para dar contraste sem fugir da paleta original.
+   Cores retiradas do logotipo da marca. As variações claras e escuras foram derivadas delas para dar contraste sem fugir da paleta original.
    ========================================================================== */
 :root {
   /* Paleta da marca */
@@ -133,6 +132,120 @@ button {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+
+/* ==========================================================================
+   3. TIPOGRAFIA
+   Roboto é a fonte principal; Baloo 2 (arredondada e alegre) marca os títulos e as palavras de destaque, no mesmo espírito do logotipo.
+   ========================================================================== */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--fonte-destaque);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--cor-marrom-escuro);
+}
+
+h1 {
+  font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+  font-weight: 800;
+}
+
+h2 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+h3 {
+  font-size: 1.35rem;
+}
+
+p {
+  color: var(--cor-grafite-suave);
+}
+
+/* Palavra em destaque dentro de um título */
+.destaque {
+  color: var(--cor-rosa-escuro);
+}
+
+
+/* ==========================================================================
+   4. ELEMENTOS REUTILIZÁVEIS
+   ========================================================================== */
+
+/* Atalho de acessibilidade: só aparece quando recebe foco pelo teclado */
+.pular-conteudo {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  z-index: 200;
+  padding: 12px 20px;
+  border-radius: 0 0 var(--raio-p) var(--raio-p);
+  background-color: var(--cor-rosa-escuro);
+  color: var(--cor-branco);
+  font-weight: 500;
+  transition: top var(--transicao);
+}
+
+.pular-conteudo:focus {
+  top: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--largura-maxima);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* --- Botões --- */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border: 2px solid transparent;
+  border-radius: var(--raio-total);
+  font-family: var(--fonte-destaque);
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  transition: transform var(--transicao), box-shadow var(--transicao),
+    background-color var(--transicao), color var(--transicao),
+    border-color var(--transicao);
+}
+
+.botao:hover {
+  transform: translateY(-3px);
+}
+
+.botao--primario {
+  background-color: var(--cor-rosa);
+  border-color: var(--cor-rosa);
+  color: var(--cor-branco);
+  box-shadow: 0 8px 20px rgba(232, 122, 201, 0.35);
+}
+
+.botao--primario:hover {
+  background-color: var(--cor-rosa-escuro);
+  border-color: var(--cor-rosa-escuro);
+  box-shadow: 0 12px 26px rgba(201, 69, 159, 0.42);
+}
+
+.botao--secundario {
+  background-color: var(--cor-branco);
+  border-color: var(--cor-marrom);
+  color: var(--cor-marrom);
+}
+
+.botao--secundario:hover {
+  background-color: var(--cor-marrom);
+  color: var(--cor-branco);
 }
 
 
