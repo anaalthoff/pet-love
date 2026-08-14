@@ -26,6 +26,11 @@
 
   <!-- Estilos do projeto -->
   <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Marca que o JavaScript está ativo antes da página ser desenhada. O CSS só esconde os elementos animados quando esta classe existe, então a página continua legível se o script falhar. -->
+  <script>
+    document.documentElement.classList.add('js');
+  </script>
 </head>
 
 <body>
@@ -160,6 +165,105 @@
         <path fill="currentColor"
           d="M0,64 C240,110 480,110 720,80 C960,50 1200,50 1440,72 L1440,110 L0,110 Z"></path>
       </svg>
+
+    </section>
+
+    <!-- SEÇÃO SOBRE -->
+    <section class="secao sobre" id="sobre">
+
+      <div class="container sobre__conteudo">
+
+        <!-- Composição de imagens da seção -->
+        <div class="sobre__midia" data-revelar>
+          <div class="sobre__moldura sobre__moldura--principal">
+            <img src="assets/img/pets2.jpg" alt="Gato cinza e cachorro golden retriever descansando juntos sobre um tapete"
+              width="1200" height="800">
+          </div>
+          <div class="sobre__moldura sobre__moldura--secundaria">
+            <img src="assets/img/pets3.jpg" alt="Cachorro golden retriever e gatinho sentados lado a lado em uma trilha"
+              width="1060" height="700">
+          </div>
+          <div class="sobre__selo-ano">
+            <span>desde</span>
+            <strong>2013</strong>
+          </div>
+        </div>
+
+        <div class="sobre__texto" data-revelar>
+          <p class="etiqueta">
+            <i class="bi bi-house-heart-fill" aria-hidden="true"></i>
+            Sobre a Pet Love
+          </p>
+
+          <h2 class="secao__titulo">
+            Um petshop que nasceu do
+            <span class="destaque">amor por bichos</span>
+          </h2>
+
+          <p>
+            A Pet Love começou em 2013, numa sala pequena no bairro Trindade, com uma banheira, um
+            secador e a certeza de que dava para atender melhor. Nada de fila, nada de animal
+            esperando horas em gaiola: cada pet tem hora marcada e sai no mesmo turno.
+          </p>
+
+          <p>
+            Hoje somos uma equipe de oito profissionais entre tosadores, auxiliares e médicas
+            veterinárias, em um espaço projetado para deixar o bicho calmo — piso antiderrapante,
+            climatização e áreas separadas para cães e gatos.
+          </p>
+
+          <ul class="sobre__diferenciais">
+            <li>
+              <span class="sobre__icone"><i class="bi bi-heart-pulse-fill" aria-hidden="true"></i></span>
+              <div>
+                <h3>Atendimento sem estresse</h3>
+                <p>Agenda com hora marcada e ambientes separados para cães e gatos.</p>
+              </div>
+            </li>
+            <li>
+              <span class="sobre__icone"><i class="bi bi-camera-video-fill" aria-hidden="true"></i></span>
+              <div>
+                <h3>Você acompanha tudo</h3>
+                <p>Fotos e atualizações no WhatsApp durante todo o atendimento.</p>
+              </div>
+            </li>
+            <li>
+              <span class="sobre__icone"><i class="bi bi-droplet-fill" aria-hidden="true"></i></span>
+              <div>
+                <h3>Produtos hipoalergênicos</h3>
+                <p>Cosméticos escolhidos conforme o tipo de pelagem e a pele de cada pet.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Indicadores animados por JavaScript -->
+      <div class="container">
+        <ul class="indicadores" data-revelar>
+          <li class="indicador">
+            <i class="bi bi-calendar-heart-fill" aria-hidden="true"></i>
+            <strong class="indicador__numero" data-contador data-alvo="12">12</strong>
+            <span class="indicador__rotulo">anos cuidando de pets</span>
+          </li>
+          <li class="indicador">
+            <i class="bi bi-emoji-smile-fill" aria-hidden="true"></i>
+            <strong class="indicador__numero" data-contador data-alvo="12500" data-prefixo="+">+12.500</strong>
+            <span class="indicador__rotulo">pets já atendidos</span>
+          </li>
+          <li class="indicador">
+            <i class="bi bi-people-fill" aria-hidden="true"></i>
+            <strong class="indicador__numero" data-contador data-alvo="8">8</strong>
+            <span class="indicador__rotulo">profissionais na equipe</span>
+          </li>
+          <li class="indicador">
+            <i class="bi bi-arrow-repeat" aria-hidden="true"></i>
+            <strong class="indicador__numero" data-contador data-alvo="98" data-sufixo="%">98%</strong>
+            <span class="indicador__rotulo">dos clientes voltam</span>
+          </li>
+        </ul>
+      </div>
 
     </section>
 
