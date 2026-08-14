@@ -152,7 +152,67 @@
   }
 
 
-  
+  /* ========================================================================
+     5. CONTADORES DOS INDICADORES
+     Cada número sobe de 0 até o valor de data-alvo quando a lista aparece na tela. O texto original já vem escrito no HTML, então o valor correto continua visível mesmo sem a animação.
+     ======================================================================== */
+  function iniciarContadores() {
+    var numeros = pegarTodos('[data-contador]');
+
+    if (numeros.length === 0 || !('IntersectionObserver' in window)) {
+      return;
+    }
+
+    var DURACAO = 1800;
+
+    /** Monta o texto final: prefixo + número separado por ponto + sufixo. */
+    function formatar(elemento, valor) {
+      var prefixo = elemento.getAttribute('data-prefixo') || '';
+      var sufixo = elemento.getAttribute('data-sufixo') || '';
+      return prefixo + valor.toLocaleString('pt-BR') + sufixo;
+    }
+
+    function animar(elemento) {
+      var alvo = Number(elemento.getAttribute('data-alvo'));
+
+      if (!isFinite(alvo)) {
+        return;
+      }
+
+      var inicio = null;
+
+      function passo(momento) {
+        if (inicio === null) {
+          inicio = momento;
+        }
+
+        var progresso = Math.min((momento - inicio) / DURACAO, 1);
+        // suavização: começa rápido e desacelera no fim
+        var suave = 1 - Math.pow(1 - progresso, 3);
+
+        elemento.textContent = formatar(elemento, Math.round(alvo * suave));
+
+        if (progresso < 1) {
+          window.requestAnimationFrame(passo);
+        }
+      }
+
+      window.requestAnimationFrame(passo);
+    }
+
+    var observador = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (entrada) {
+        if (entrada.isIntersecting) {
+          animar(entrada.target);
+          observador.unobserve(entrada.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    numeros.forEach(function (numero) {
+      observador.observe(numero);
+    });
+  }
 
 
   /* ========================================================================
