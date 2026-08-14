@@ -249,3 +249,222 @@ p {
 }
 
 
+/* ==========================================================================
+   5. CABEÇALHO E NAVEGAÇÃO
+   ========================================================================== */
+.cabecalho {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(230, 209, 185, 0.6);
+  transition: box-shadow var(--transicao), background-color var(--transicao);
+}
+
+/* Classe aplicada pelo JavaScript quando a página é rolada */
+.cabecalho--rolado {
+  background-color: var(--cor-branco);
+  box-shadow: var(--sombra-suave);
+}
+
+.cabecalho__conteudo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: var(--altura-cabecalho);
+}
+
+/* --- Marca --- */
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.marca__simbolo {
+  width: 52px;
+  height: 52px;
+  transition: transform var(--transicao);
+}
+
+.marca:hover .marca__simbolo {
+  transform: rotate(-8deg) scale(1.06);
+}
+
+.marca__nome {
+  font-family: var(--fonte-destaque);
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--cor-marrom);
+}
+
+.marca__nome-destaque {
+  color: var(--cor-rosa);
+}
+
+/* --- Navegação --- */
+.navegacao {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.navegacao__lista {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.navegacao__link {
+  position: relative;
+  padding: 6px 0;
+  font-weight: 500;
+  color: var(--cor-grafite);
+  transition: color var(--transicao);
+}
+
+/* Sublinhado animado, desenhado com position absolute */
+.navegacao__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 3px;
+  border-radius: var(--raio-total);
+  background-color: var(--cor-rosa);
+  transition: width var(--transicao);
+}
+
+.navegacao__link:hover,
+.navegacao__link--ativo {
+  color: var(--cor-rosa-escuro);
+}
+
+.navegacao__link:hover::after,
+.navegacao__link--ativo::after {
+  width: 100%;
+}
+
+.navegacao__botao {
+  padding: 11px 24px;
+  font-size: 1rem;
+}
+
+/* --- Botão do menu no celular --- */
+.abrir-menu {
+  display: none;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--raio-p);
+  background-color: var(--cor-rosa-claro);
+  color: var(--cor-marrom-escuro);
+  font-size: 1.8rem;
+  line-height: 1;
+  transition: background-color var(--transicao);
+}
+
+.abrir-menu:hover {
+  background-color: var(--cor-creme);
+}
+
+/* Camada escura atrás do menu aberto */
+.fundo-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background-color: rgba(62, 57, 58, 0.55);
+  opacity: 0;
+  transition: opacity var(--transicao);
+}
+
+.fundo-menu--visivel {
+  opacity: 1;
+}
+
+
+/* ==========================================================================
+   6. RESPONSIVIDADE DO CABEÇALHO
+   Abaixo de 900px a navegação vira um painel lateral acionado pelo botão.
+   ========================================================================== */
+@media (max-width: 900px) {
+
+  :root {
+    --altura-cabecalho: 76px;
+  }
+
+  .abrir-menu {
+    display: inline-flex;
+  }
+
+  .navegacao {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 95;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 8px;
+    width: min(320px, 84vw);
+    height: 100vh;
+    padding: 100px 32px 32px;
+    background-color: var(--cor-branco);
+    box-shadow: var(--sombra-forte);
+    transform: translateX(100%);
+    transition: transform var(--transicao);
+    overflow-y: auto;
+  }
+
+  .navegacao--aberta {
+    transform: translateX(0);
+  }
+
+  .navegacao__lista {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    width: 100%;
+  }
+
+  .navegacao__lista li {
+    width: 100%;
+    border-bottom: 1px solid var(--cor-creme-claro);
+  }
+
+  .navegacao__link {
+    display: block;
+    width: 100%;
+    padding: 14px 0;
+    font-size: 1.1rem;
+  }
+
+  .navegacao__botao {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .container {
+    padding: 0 18px;
+  }
+
+  .marca__simbolo {
+    width: 44px;
+    height: 44px;
+  }
+
+  .marca__nome {
+    font-size: 1.35rem;
+  }
+}
