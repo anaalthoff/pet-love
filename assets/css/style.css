@@ -480,3 +480,323 @@ p {
     font-size: 1.35rem;
   }
 }
+
+
+/* ==========================================================================
+   6. SEÇÃO DE DESTAQUE (BANNER)
+   Esta seção concentra o uso de position: a seção é o elemento de referência (relative) e as formas decorativas, os cartões flutuantes e o selo de patinha são posicionados sobre a foto com position: absolute.
+   ========================================================================== */
+.banner {
+  position: relative;
+  overflow: hidden;
+  padding: calc(var(--altura-cabecalho) + 60px) 0 165px;
+  background: linear-gradient(160deg, var(--cor-creme-claro) 0%, var(--cor-rosa-claro) 100%);
+}
+
+/* --- Formas decorativas do fundo --- */
+.banner__forma {
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(10px);
+  opacity: 0.5;
+}
+
+.banner__forma--um {
+  top: -90px;
+  right: -60px;
+  width: 340px;
+  height: 340px;
+  background-color: rgba(232, 122, 201, 0.35);
+}
+
+.banner__forma--dois {
+  bottom: 40px;
+  left: -110px;
+  width: 300px;
+  height: 300px;
+  background-color: rgba(230, 209, 185, 0.75);
+}
+
+/* Coracoes espalhados pelo fundo, apenas decorativos */
+.banner__coracao {
+  position: absolute;
+  z-index: 0;
+  color: var(--cor-marrom);
+  opacity: 0.14;
+}
+
+.banner__coracao--um {
+  top: 22%;
+  left: 6%;
+  font-size: 3rem;
+  transform: rotate(-18deg);
+}
+
+.banner__coracao--dois {
+  bottom: 18%;
+  left: 42%;
+  font-size: 2.2rem;
+  transform: rotate(14deg);
+}
+
+.banner__coracao--tres {
+  top: 14%;
+  right: 46%;
+  font-size: 1.8rem;
+  transform: rotate(-6deg);
+}
+
+/* --- Grade principal: texto à esquerda, composição de imagem à direita --- */
+.banner__conteudo {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+  gap: 60px;
+}
+
+.banner__titulo {
+  margin: 20px 0 18px;
+}
+
+.banner__descricao {
+  max-width: 52ch;
+  font-size: 1.1rem;
+  color: var(--cor-grafite);
+}
+
+.banner__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.banner__vantagens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  margin-top: 34px;
+  padding-top: 26px;
+  border-top: 1px solid rgba(127, 81, 59, 0.18);
+}
+
+.banner__vantagens li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--cor-marrom-escuro);
+}
+
+.banner__vantagens i {
+  color: var(--cor-rosa-escuro);
+  font-size: 1.15rem;
+}
+
+/* --- Composição da imagem --- */
+.banner__midia {
+  position: relative;
+}
+
+.banner__moldura {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  /* aspect-ratio mantém a proporção da foto em qualquer largura de tela */
+  aspect-ratio: 4 / 3;
+  border: 10px solid var(--cor-branco);
+  border-radius: var(--raio-g);
+  box-shadow: var(--sombra-forte);
+  transform: rotate(-2deg);
+}
+
+.banner__moldura img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Cartões sobrepostos à foto */
+.cartao-flutuante {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-radius: var(--raio-m);
+  background-color: var(--cor-branco);
+  box-shadow: var(--sombra-media);
+  animation: flutuar 4s ease-in-out infinite;
+}
+
+.cartao-flutuante i {
+  font-size: 1.6rem;
+}
+
+.cartao-flutuante__valor {
+  display: block;
+  font-family: var(--fonte-destaque);
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--cor-marrom-escuro);
+}
+
+.cartao-flutuante__rotulo {
+  font-size: 0.82rem;
+  color: var(--cor-grafite-suave);
+}
+
+.cartao-flutuante--nota {
+  top: 30px;
+  left: -34px;
+}
+
+.cartao-flutuante--nota i {
+  color: #f0b429;
+}
+
+.cartao-flutuante--pets {
+  right: -30px;
+  bottom: 44px;
+  animation-delay: 1.4s;
+}
+
+.cartao-flutuante--pets i {
+  color: var(--cor-rosa);
+}
+
+/* Selo redondo sobreposto ao canto da foto */
+.banner__selo {
+  position: absolute;
+  top: -26px;
+  right: 34px;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background-color: var(--cor-rosa);
+  color: var(--cor-branco);
+  font-size: 2.1rem;
+  box-shadow: 0 10px 24px rgba(232, 122, 201, 0.45);
+  animation: balancar 3.5s ease-in-out infinite;
+}
+
+@keyframes flutuar {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes balancar {
+
+  0%,
+  100% {
+    transform: rotate(-10deg);
+  }
+
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+/* Onda branca que faz a transição para a próxima seção */
+.banner__onda {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  color: var(--cor-branco);
+}
+
+/* --- 6.1 Responsividade da seção de destaque --- */
+@media (max-width: 900px) {
+
+  .banner {
+    padding: calc(var(--altura-cabecalho) + 40px) 0 120px;
+    text-align: center;
+  }
+
+  .banner__conteudo {
+    grid-template-columns: 1fr;
+    gap: 70px;
+  }
+
+  .banner__descricao {
+    margin: 0 auto;
+  }
+
+  .banner__acoes,
+  .banner__vantagens {
+    justify-content: center;
+  }
+
+  .banner__midia {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .banner__coracao--dois,
+  .banner__coracao--tres {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+
+  .banner__moldura {
+    border-width: 7px;
+    transform: none;
+  }
+
+  .cartao-flutuante {
+    padding: 11px 15px;
+    gap: 9px;
+  }
+
+  .cartao-flutuante i {
+    font-size: 1.3rem;
+  }
+
+  .cartao-flutuante__valor {
+    font-size: 1.05rem;
+  }
+
+  .cartao-flutuante--nota {
+    top: 14px;
+    left: -10px;
+  }
+
+  .cartao-flutuante--pets {
+    right: -10px;
+    bottom: 16px;
+  }
+
+  .banner__selo {
+    top: -20px;
+    right: 12px;
+    width: 64px;
+    height: 64px;
+    font-size: 1.6rem;
+  }
+
+  .banner__acoes .botao {
+    width: 100%;
+  }
+}
