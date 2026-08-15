@@ -2,16 +2,6 @@
 
 Documentação do projeto desenvolvido para o **Desafio Extra** da Carreira Tech do SCTECdo SCTEC / LAB365 SENAI-SC.
 
----
-
-## 1. Identificação
-
-| | |
-|---|---|
-| **Projeto** | Pet Love Petshop - landing page institucional |
-| **Atividade** | Desafio Extra - ciclo 2 da Carreira Tech / SCTEC |
-| **Tecnologias** | HTML5, CSS3 e JavaScript (ES5+), sem frameworks |
-
 ### Sobre a marca
 
 A Pet Love é um petshop **fictício**, criado para esta atividade. A proposta é um petshop e clínica veterinária que reúne banho e tosa, consultas, vacinação, hotelzinho, táxi pet e loja no mesmo lugar. Todos os dados de contato, preços, depoimentos e números apresentados na página são ilustrativos.
@@ -26,8 +16,6 @@ A identidade visual partiu do logotipo criado para a marca, de onde saíram as c
 | Grafite | `#3e393a` | texto corrido e fundo do rodapé |
 | Branco | `#ffffff` | fundo geral e cartões |
 
----
-
 ## 2. Tecnologias e recursos externos
 
 - **HTML5** com marcação semântica (`header`, `nav`, `main`, `section`, `article`, `footer`, `blockquote`, `form`).
@@ -39,8 +27,6 @@ A identidade visual partiu do logotipo criado para a marca, de onde saíram as c
 - **[Bootstrap Icons](https://icons.getbootstrap.com) v1.13.1** - biblioteca de ícones, também por CDN, usada em botões, cards, listas, redes sociais e mensagens de erro.
 
 > **Atenção ao avaliar sem internet:** as fontes e os ícones vêm de CDN. Sem conexão, a página continua funcionando normalmente (layout, responsividade e todos os scripts), apenas com as fontes substituídas pelas de sistema e sem os ícones.
-
----
 
 ## 3. Estrutura de arquivos
 
@@ -69,8 +55,6 @@ A pasta de imagens contém apenas os arquivos efetivamente usados pela página.
 
 O CSS e o JavaScript ficam em arquivos externos, e ambos começam com um sumário numerado que corresponde exatamente à ordem dos blocos dentro do arquivo, para facilitar a leitura.
 
----
-
 ## 4. Seções da página
 
 | # | Seção | Conteúdo |
@@ -83,8 +67,6 @@ O CSS e o JavaScript ficam em arquivos externos, e ambos começam com um sumári
 | 5 | **Dúvidas** (`#duvidas`) | Acordeão com cinco perguntas frequentes |
 | 6 | **Contato** (`#contato`) | Dados da loja, horários e formulário com validação |
 | — | **Rodapé** | Faixa decorativa, marca, redes sociais, três colunas de links e créditos |
-
----
 
 ## 5. Etapas de desenvolvimento
 
@@ -163,8 +145,6 @@ Abaixo dela, o rodapé em fundo grafite com a marca, quatro redes sociais, três
 
 Redação deste arquivo, revisão dos comentários do código e conferência final dos requisitos.
 
----
-
 ## 6. Responsividade
 
 O layout foi ajustado em seis pontos de quebra:
@@ -180,8 +160,6 @@ O layout foi ajustado em seis pontos de quebra:
 | **até 480px** | Recuo lateral do `.container` e tamanho da marca no cabeçalho reduzidos |
 
 Todas as imagens usam `max-width: 100%` e altura automática, e o `body` recebe `overflow-x: hidden` para que os elementos decorativos posicionados fora da tela não criem barra de rolagem horizontal.
-
----
 
 ## 7. Acessibilidade
 
