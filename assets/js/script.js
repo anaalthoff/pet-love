@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PET LOVE PETSHOP — Interatividade da página
+   PET LOVE PETSHOP - Interatividade da página
    --------------------------------------------------------------------------
    SUMÁRIO
    1. Utilitários
@@ -10,6 +10,7 @@
    6. Carrossel de depoimentos
    7. Acordeão das dúvidas frequentes
    8. Validação do formulário de contato
+   9. Ano atual no rodapé
    ========================================================================== */
 
 (function () {
@@ -709,6 +710,19 @@
 
 
   /* ========================================================================
+     9. ANO ATUAL NO RODAPÉ
+     O ano já vem escrito no HTML para aparecer mesmo sem JavaScript; aqui ele é apenas atualizado para não envelhecer sozinho.
+     ======================================================================== */
+  function iniciarAnoDoRodape() {
+    var ano = pegar('#ano-atual');
+
+    if (ano) {
+      ano.textContent = new Date().getFullYear();
+    }
+  }
+
+
+  /* ========================================================================
      INICIALIZAÇÃO
      ======================================================================== */
   document.addEventListener('DOMContentLoaded', function () {
@@ -719,6 +733,7 @@
     iniciarCarrossel();
     iniciarAcordeao();
     iniciarFormulario();
+    iniciarAnoDoRodape();
   });
 
 })();
