@@ -12,6 +12,7 @@
    8. Seção de serviços
    9. Seção de depoimentos (carrossel)
    10. Seção de dúvidas frequentes (acordeão)
+   11. Seção de contato e formulário
    ========================================================================== */
 
 /* ==========================================================================
@@ -1592,5 +1593,347 @@ p {
   .acordeao__conteudo p {
     padding: 0 20px 20px;
     font-size: 0.97rem;
+  }
+}
+
+
+/* ==========================================================================
+   11. SEÇÃO DE CONTATO E FORMULÁRIO
+   Duas colunas em grid: os dados da loja à esquerda e o formulário à direita. Os estados de erro e de acerto são pintados a partir das classes que o JavaScript aplica em cada campo.
+   ========================================================================== */
+.contato__conteudo {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* --- Coluna dos dados da loja --- */
+.contato__lista {
+  display: grid;
+  gap: 26px;
+}
+
+.contato__dado {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.contato__icone {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--raio-total);
+  background-color: var(--cor-rosa-claro);
+  color: var(--cor-rosa-escuro);
+  font-size: 1.35rem;
+}
+
+.contato__dado h3 {
+  margin-bottom: 4px;
+  font-size: 1.15rem;
+  color: var(--cor-marrom);
+}
+
+.contato__dado a {
+  color: var(--cor-grafite-suave);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transicao);
+}
+
+.contato__dado a:hover {
+  color: var(--cor-rosa-escuro);
+}
+
+/* --- Quadro de horários --- */
+.contato__horarios {
+  margin-top: 34px;
+  padding: 26px 28px;
+  border-radius: var(--raio-m);
+  background: linear-gradient(135deg, var(--cor-marrom) 0%, var(--cor-marrom-escuro) 100%);
+  color: var(--cor-branco);
+}
+
+.contato__horarios h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  font-size: 1.15rem;
+  color: var(--cor-branco);
+}
+
+.contato__horarios h3 i {
+  color: var(--cor-rosa);
+}
+
+.contato__horarios li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 10px 0;
+}
+
+.contato__horarios li+li {
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.contato__horarios span {
+  font-size: 0.97rem;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.contato__horarios strong {
+  font-family: var(--fonte-destaque);
+  font-size: 1.05rem;
+}
+
+/* --- Formulário --- */
+.formulario {
+  padding: 36px;
+  border: 1px solid rgba(230, 209, 185, 0.8);
+  border-radius: var(--raio-g);
+  background-color: var(--cor-branco);
+  box-shadow: var(--sombra-media);
+}
+
+.formulario__aviso {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  font-size: 0.95rem;
+}
+
+.formulario__aviso i {
+  color: var(--cor-rosa-escuro);
+}
+
+/* O asterisco dos campos obrigatórios */
+.obrigatorio {
+  color: var(--cor-rosa-escuro);
+  font-weight: 700;
+}
+
+/* Duas colunas nas linhas com dois campos */
+.formulario__linha {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 20px;
+}
+
+.campo {
+  margin-bottom: 20px;
+}
+
+.campo__rotulo {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--cor-grafite);
+}
+
+.campo__controle {
+  width: 100%;
+  padding: 13px 16px;
+  border: 2px solid var(--cor-creme);
+  border-radius: var(--raio-p);
+  background-color: var(--cor-branco);
+  font-size: 1rem;
+  transition: border-color var(--transicao), box-shadow var(--transicao);
+}
+
+.campo__controle::placeholder {
+  color: #a89e96;
+}
+
+.campo__controle:focus {
+  border-color: var(--cor-rosa);
+  box-shadow: 0 0 0 4px rgba(232, 122, 201, 0.18);
+  /* o anel de foco acima já sinaliza o campo ativo */
+  outline: none;
+}
+
+.campo__controle--area {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+/* A seta do select, desenhada em CSS para não depender do estilo do sistema */
+select.campo__controle {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 44px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%237f513b'%3E%3Cpath d='M8 11.5 2.5 6h11z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 14px;
+  cursor: pointer;
+}
+
+/* --- Estados aplicados pelo JavaScript --- */
+.campo--invalido .campo__controle {
+  border-color: #d3455b;
+  background-color: #fdf2f4;
+}
+
+.campo--invalido .campo__controle:focus {
+  box-shadow: 0 0 0 4px rgba(211, 69, 91, 0.16);
+}
+
+.campo--valido .campo__controle {
+  border-color: #4a9e6b;
+}
+
+.campo__erro {
+  display: none;
+  margin-top: 6px;
+  color: #c02a41;
+  font-size: 0.87rem;
+  line-height: 1.45;
+}
+
+/* A mensagem só ocupa espaço quando existe texto dentro dela */
+.campo--invalido .campo__erro {
+  display: block;
+}
+
+/* Triângulo de aviso na frente da mensagem. O código F33A é o do ícone exclamation-triangle-fill na versão 1.13.1 do Bootstrap Icons, que é a versão fixada no <head>. */
+.campo__erro::before {
+  content: '\F33A';
+  font-family: bootstrap-icons;
+  margin-right: 6px;
+}
+
+/* Linha abaixo do textarea: mensagem de erro à esquerda, contador à direita */
+.campo__rodape {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.campo__contador {
+  flex-shrink: 0;
+  /* o margin-left mantém o contador à direita mesmo quando não há mensagem de erro ao lado */
+  margin-left: auto;
+  margin-top: 6px;
+  color: var(--cor-grafite-suave);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Avisa que o limite de caracteres está próximo */
+.campo__contador--limite {
+  color: #c02a41;
+  font-weight: 500;
+}
+
+/* --- Caixa de aceite --- */
+.campo--aceite {
+  margin-bottom: 26px;
+}
+
+.campo__marcacao {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.campo__marcacao input {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 3px;
+  accent-color: var(--cor-rosa);
+  cursor: pointer;
+}
+
+.campo__marcacao label {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--cor-grafite-suave);
+  cursor: pointer;
+}
+
+.campo--aceite.campo--invalido .campo__marcacao input {
+  outline: 2px solid #d3455b;
+  outline-offset: 3px;
+}
+
+.formulario__enviar {
+  width: 100%;
+}
+
+/* --- Retorno depois do envio --- */
+.formulario__retorno {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 22px;
+  padding: 16px 20px;
+  border-radius: var(--raio-p);
+  font-size: 0.97rem;
+}
+
+/* Estilos de autor vencem a regra do navegador para o atributo hidden, então o display precisa ser desligado explicitamente enquanto não há retorno. */
+.formulario__retorno[hidden] {
+  display: none;
+}
+
+.formulario__retorno--sucesso {
+  background-color: #eaf7ef;
+  border: 1px solid #a8d9bb;
+  color: #256b41;
+}
+
+.formulario__retorno--erro {
+  background-color: #fdf2f4;
+  border: 1px solid #f0bcc5;
+  color: #a72236;
+}
+
+.formulario__retorno i {
+  flex-shrink: 0;
+  margin-top: 3px;
+  font-size: 1.1rem;
+}
+
+/* --- 11.1 Responsividade da seção de contato --- */
+@media (max-width: 980px) {
+
+  .contato__conteudo {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  /* No tablet os dados da loja ficam em duas colunas para ocupar melhor a largura */
+  .contato__lista {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 30px;
+  }
+}
+
+@media (max-width: 620px) {
+
+  .contato__lista {
+    grid-template-columns: 1fr;
+  }
+
+  .formulario {
+    padding: 26px 22px;
+  }
+
+  /* Um campo por linha, para o toque não errar o alvo */
+  .formulario__linha {
+    grid-template-columns: 1fr;
+    gap: 0;
   }
 }
