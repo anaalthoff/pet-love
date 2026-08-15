@@ -9,6 +9,7 @@
    5. Contadores dos indicadores
    6. Carrossel de depoimentos
    7. Acordeão das dúvidas frequentes
+   8. Validação do formulário de contato
    ========================================================================== */
 
 (function () {
@@ -403,6 +404,311 @@
 
 
   /* ========================================================================
+     8. VALIDAÇÃO DO FORMULÁRIO DE CONTATO
+     O formulário tem o atributo novalidate no HTML, então as mensagens padrão do navegador ficam desligadas e toda a checagem acontece aqui. Cada campo tem uma regra que devolve a mensagem de erro ou uma string vazia quando está correto.
+     ======================================================================== */
+  function iniciarFormulario() {
+    var formulario = pegar('#formulario-contato');
+
+    if (!formulario) {
+      return;
+    }
+
+    var retorno = pegar('#formulario-retorno');
+    var contador = pegar('#contador-mensagem');
+    var campoMensagem = pegar('#mensagem');
+    var campoTelefone = pegar('#telefone');
+    var campoData = pegar('#data');
+
+    var LIMITE_MENSAGEM = 500;
+    var AVISO_LIMITE = 50;
+
+    // Formato mínimo aceitável: algo@algo.dominio, sem espaços
+    var FORMATO_EMAIL = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
+
+    /** Data de hoje no formato aaaa-mm-dd, igual ao usado pelo input type="date". */
+    function dataDeHoje() {
+      var agora = new Date();
+      var mes = agora.getMonth() + 1;
+      var dia = agora.getDate();
+
+      return agora.getFullYear()
+        + '-' + (mes < 10 ? '0' + mes : mes)
+        + '-' + (dia < 10 ? '0' + dia : dia);
+    }
+
+    /* Regras de validação. Recebem o valor já sem espaços nas pontas e o próprio elemento, e devolvem a mensagem de erro ou '' quando o campo está válido. */
+    var regras = {
+      nome: function (valor) {
+        if (valor === '') {
+          return 'Escreva o seu nome para sabermos como chamar você.';
+        }
+        if (valor.length < 3) {
+          return 'O nome precisa ter pelo menos 3 letras.';
+        }
+        return '';
+      },
+
+      email: function (valor) {
+        if (valor === '') {
+          return 'Informe um e-mail para o nosso retorno.';
+        }
+        if (!FORMATO_EMAIL.test(valor)) {
+          return 'Confira o e-mail: o formato esperado é nome@provedor.com.';
+        }
+        return '';
+      },
+
+      telefone: function (valor) {
+        var digitos = valor.replace(/\D/g, '');
+
+        if (digitos === '') {
+          return 'Informe um telefone com DDD.';
+        }
+        if (digitos.length < 10) {
+          return 'O telefone precisa do DDD mais 8 ou 9 dígitos.';
+        }
+        return '';
+      },
+
+      servico: function (valor) {
+        if (valor === '') {
+          return 'Escolha o serviço que você precisa.';
+        }
+        return '';
+      },
+
+      data: function (valor) {
+        // campo opcional: só é conferido quando preenchido
+        if (valor === '') {
+          return '';
+        }
+        if (valor < dataDeHoje()) {
+          return 'Escolha uma data de hoje em diante.';
+        }
+        return '';
+      },
+
+      mensagem: function (valor) {
+        if (valor === '') {
+          return 'Conte rapidamente do que o seu pet precisa.';
+        }
+        if (valor.length < 10) {
+          return 'Escreva um pouco mais: pelo menos 10 caracteres.';
+        }
+        return '';
+      },
+
+      aceite: function (valor, elemento) {
+        if (!elemento.checked) {
+          return 'É preciso autorizar o contato para enviarmos a solicitação.';
+        }
+        return '';
+      }
+    };
+
+    // Elementos que passam pela validação, na mesma ordem em que aparecem na tela
+    var campos = Object.keys(regras)
+      .map(function (id) {
+        return document.getElementById(id);
+      })
+      .filter(function (elemento) {
+        return elemento !== null;
+      });
+
+    /** Bloco .campo que envolve o elemento e recebe as classes de estado. */
+    function blocoDe(elemento) {
+      return elemento.closest('.campo');
+    }
+
+    /** Mensagem <small> ligada ao campo pelo aria-describedby. */
+    function avisoDe(elemento) {
+      return document.getElementById('erro-' + elemento.id);
+    }
+
+    function mostrarErro(elemento, mensagem) {
+      var bloco = blocoDe(elemento);
+      var aviso = avisoDe(elemento);
+
+      bloco.classList.add('campo--invalido');
+      bloco.classList.remove('campo--valido');
+      elemento.setAttribute('aria-invalid', 'true');
+
+      if (aviso) {
+        aviso.textContent = mensagem;
+      }
+    }
+
+    function marcarCorreto(elemento) {
+      var bloco = blocoDe(elemento);
+      var aviso = avisoDe(elemento);
+      var preenchido = elemento.type === 'checkbox'
+        ? elemento.checked
+        : elemento.value.trim() !== '';
+
+      bloco.classList.remove('campo--invalido');
+      // a borda verde só aparece depois que o visitante escreveu algo
+      bloco.classList.toggle('campo--valido', preenchido);
+      elemento.removeAttribute('aria-invalid');
+
+      if (aviso) {
+        aviso.textContent = '';
+      }
+    }
+
+    /** Aplica a regra do campo e devolve true quando ele está válido. */
+    function validarCampo(elemento) {
+      var regra = regras[elemento.id];
+
+      if (!regra) {
+        return true;
+      }
+
+      var mensagem = regra(elemento.value.trim(), elemento);
+
+      if (mensagem === '') {
+        marcarCorreto(elemento);
+        return true;
+      }
+
+      mostrarErro(elemento, mensagem);
+      return false;
+    }
+
+    /** Devolve o formulário ao estado neutro depois de um envio. */
+    function limparEstados() {
+      campos.forEach(function (elemento) {
+        var aviso = avisoDe(elemento);
+
+        blocoDe(elemento).classList.remove('campo--invalido', 'campo--valido');
+        elemento.removeAttribute('aria-invalid');
+
+        if (aviso) {
+          aviso.textContent = '';
+        }
+      });
+    }
+
+    /** Escreve o aviso final. O texto entra por textContent para que um nome digitado nunca seja interpretado como HTML. */
+    function mostrarRetorno(tipo, icone, texto) {
+      if (!retorno) {
+        return;
+      }
+
+      var simbolo = document.createElement('i');
+      var frase = document.createElement('span');
+
+      simbolo.className = 'bi ' + icone;
+      simbolo.setAttribute('aria-hidden', 'true');
+      frase.textContent = texto;
+
+      retorno.className = 'formulario__retorno formulario__retorno--' + tipo;
+      retorno.innerHTML = '';
+      retorno.appendChild(simbolo);
+      retorno.appendChild(frase);
+      retorno.hidden = false;
+    }
+
+    /** Vai escrevendo o telefone no formato (48) 99999-0000. */
+    function formatarTelefone(valor) {
+      var digitos = valor.replace(/\D/g, '').slice(0, 11);
+
+      if (digitos.length === 0) {
+        return '';
+      }
+      if (digitos.length <= 2) {
+        return '(' + digitos;
+      }
+      if (digitos.length <= 6) {
+        return '(' + digitos.slice(0, 2) + ') ' + digitos.slice(2);
+      }
+      // 8 dígitos (fixo) ou 9 dígitos (celular) mudam a posição do hífen
+      if (digitos.length <= 10) {
+        return '(' + digitos.slice(0, 2) + ') ' + digitos.slice(2, 6) + '-' + digitos.slice(6);
+      }
+      return '(' + digitos.slice(0, 2) + ') ' + digitos.slice(2, 7) + '-' + digitos.slice(7);
+    }
+
+    function atualizarContador() {
+      if (!contador || !campoMensagem) {
+        return;
+      }
+
+      var usados = campoMensagem.value.length;
+
+      contador.textContent = usados + ' / ' + LIMITE_MENSAGEM;
+      contador.classList.toggle(
+        'campo__contador--limite',
+        usados > LIMITE_MENSAGEM - AVISO_LIMITE
+      );
+    }
+
+    // O calendário não deixa escolher um dia que já passou
+    if (campoData) {
+      campoData.min = dataDeHoje();
+    }
+
+    if (campoTelefone) {
+      campoTelefone.addEventListener('input', function () {
+        campoTelefone.value = formatarTelefone(campoTelefone.value);
+      });
+    }
+
+    if (campoMensagem) {
+      campoMensagem.addEventListener('input', atualizarContador);
+      atualizarContador();
+    }
+
+    campos.forEach(function (elemento) {
+      // listas e caixas de marcação avisam no change; os demais campos, ao perder o foco
+      var evento = (elemento.tagName === 'SELECT' || elemento.type === 'checkbox')
+        ? 'change'
+        : 'blur';
+
+      elemento.addEventListener(evento, function () {
+        validarCampo(elemento);
+      });
+
+      // depois de um erro, o aviso some assim que o campo é corrigido
+      elemento.addEventListener('input', function () {
+        if (blocoDe(elemento).classList.contains('campo--invalido')) {
+          validarCampo(elemento);
+        }
+      });
+    });
+
+    formulario.addEventListener('submit', function (evento) {
+      evento.preventDefault();
+
+      var invalidos = campos.filter(function (elemento) {
+        return !validarCampo(elemento);
+      });
+
+      if (invalidos.length > 0) {
+        mostrarRetorno('erro', 'bi-exclamation-triangle-fill',
+          invalidos.length === 1
+            ? 'Um campo precisa ser revisado antes do envio.'
+            : invalidos.length + ' campos precisam ser revisados antes do envio.');
+
+        // leva o visitante direto ao primeiro problema
+        invalidos[0].focus();
+        return;
+      }
+
+      /* Não existe servidor neste projeto: a confirmação é apenas na camada de front-end, como pede o desafio. */
+      var primeiroNome = pegar('#nome').value.trim().split(' ')[0];
+
+      mostrarRetorno('sucesso', 'bi-check-circle-fill',
+        'Tudo certo, ' + primeiroNome + '! Recebemos a sua solicitação e retornamos em até um dia útil.');
+
+      formulario.reset();
+      limparEstados();
+      atualizarContador();
+    });
+  }
+
+
+  /* ========================================================================
      INICIALIZAÇÃO
      ======================================================================== */
   document.addEventListener('DOMContentLoaded', function () {
@@ -412,6 +718,7 @@
     iniciarContadores();
     iniciarCarrossel();
     iniciarAcordeao();
+    iniciarFormulario();
   });
 
 })();
