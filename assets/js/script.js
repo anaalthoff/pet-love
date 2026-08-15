@@ -8,6 +8,7 @@
    4. Animação de entrada dos elementos
    5. Contadores dos indicadores
    6. Carrossel de depoimentos
+   7. Acordeão das dúvidas frequentes
    ========================================================================== */
 
 (function () {
@@ -359,6 +360,47 @@
     irPara(0);
     iniciarRelogio();
   }
+
+
+  /* ========================================================================
+     7. ACORDEÃO DAS DÚVIDAS FREQUENTES
+     Abre uma resposta por vez. O aria-expanded do botão é a fonte da verdade do estado; o CSS anima a altura a partir da classe do item.
+     ======================================================================== */
+  function iniciarAcordeao() {
+    var botoes = pegarTodos('#acordeao .acordeao__botao');
+
+    if (botoes.length === 0) {
+      return;
+    }
+
+    function fechar(botao) {
+      botao.setAttribute('aria-expanded', 'false');
+      botao.closest('.acordeao__item').classList.remove('acordeao__item--aberto');
+    }
+
+    function abrir(botao) {
+      botao.setAttribute('aria-expanded', 'true');
+      botao.closest('.acordeao__item').classList.add('acordeao__item--aberto');
+    }
+
+    botoes.forEach(function (botao) {
+      botao.addEventListener('click', function () {
+        var jaEstavaAberto = botao.getAttribute('aria-expanded') === 'true';
+
+        // fecha todas para deixar apenas uma resposta aberta por vez
+        botoes.forEach(fechar);
+
+        // clicar na pergunta já aberta apenas fecha a resposta
+        if (!jaEstavaAberto) {
+          abrir(botao);
+        }
+      });
+    });
+
+    // A primeira dúvida começa aberta, para a seção não parecer vazia
+    abrir(botoes[0]);
+  }
+
 
   /* ========================================================================
      INICIALIZAÇÃO
