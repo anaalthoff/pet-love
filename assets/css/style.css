@@ -11,6 +11,7 @@
    7. Seção sobre e indicadores
    8. Seção de serviços
    9. Seção de depoimentos (carrossel)
+   10. Seção de dúvidas frequentes (acordeão)
    ========================================================================== */
 
 /* ==========================================================================
@@ -1434,5 +1435,146 @@ p {
   .carrossel__seta {
     width: 46px;
     height: 46px;
+  }
+}
+
+
+/* ==========================================================================
+   10. SEÇÃO DE DÚVIDAS FREQUENTES (ACORDEÃO)
+   A resposta abre e fecha animando grid-template-rows de 0fr para 1fr, o que permite a transição sem precisar calcular a altura no JavaScript. Sem o script, todas as respostas ficam abertas.
+   ========================================================================== */
+.acordeao {
+  display: grid;
+  gap: 16px;
+}
+
+.acordeao__item {
+  overflow: hidden;
+  border: 1px solid rgba(230, 209, 185, 0.8);
+  border-radius: var(--raio-m);
+  background-color: var(--cor-branco);
+  box-shadow: var(--sombra-suave);
+  transition: box-shadow var(--transicao), border-color var(--transicao);
+}
+
+.acordeao__item--aberto {
+  border-color: var(--cor-rosa);
+  box-shadow: var(--sombra-media);
+}
+
+/* O h3 existe pela hierarquia de títulos; o tamanho visual vem do botão */
+.acordeao__pergunta {
+  font-size: 1rem;
+}
+
+.acordeao__botao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+  padding: 22px 26px;
+  font-family: var(--fonte-destaque);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: left;
+  color: var(--cor-marrom-escuro);
+  transition: color var(--transicao);
+}
+
+.acordeao__botao:hover {
+  color: var(--cor-rosa-escuro);
+}
+
+.acordeao__icone {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--raio-total);
+  background-color: var(--cor-rosa-claro);
+  color: var(--cor-rosa-escuro);
+  font-size: 0.95rem;
+  transition: transform var(--transicao), background-color var(--transicao),
+    color var(--transicao);
+}
+
+/* Girando 135 graus, o sinal de + vira um × */
+.acordeao__item--aberto .acordeao__icone {
+  transform: rotate(135deg);
+  background-color: var(--cor-rosa);
+  color: var(--cor-branco);
+}
+
+.acordeao__resposta {
+  display: grid;
+  /* padrão sem JavaScript: resposta aberta */
+  grid-template-rows: 1fr;
+}
+
+.js .acordeao__resposta {
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.js .acordeao__item--aberto .acordeao__resposta {
+  grid-template-rows: 1fr;
+}
+
+.acordeao__conteudo {
+  overflow: hidden;
+}
+
+/* Fechada, a resposta também sai da leitura dos leitores de tela. A transição de visibility é adiada para não cortar a animação de fechamento. */
+.js .acordeao__conteudo {
+  visibility: hidden;
+  transition: visibility 0s linear 0.35s;
+}
+
+.js .acordeao__item--aberto .acordeao__conteudo {
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.acordeao__conteudo p {
+  padding: 0 26px 24px;
+}
+
+/* --- Chamada final da seção --- */
+.duvidas__ajuda {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px 16px;
+  margin-top: 44px;
+  text-align: center;
+  font-size: 1.02rem;
+}
+
+.duvidas__ajuda i {
+  color: var(--cor-rosa-escuro);
+}
+
+.duvidas__ajuda a {
+  font-weight: 700;
+  color: var(--cor-rosa-escuro);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* --- 10.1 Responsividade do acordeão --- */
+@media (max-width: 560px) {
+
+  .acordeao__botao {
+    padding: 18px 20px;
+    font-size: 1.05rem;
+  }
+
+  .acordeao__conteudo p {
+    padding: 0 20px 20px;
+    font-size: 0.97rem;
   }
 }
