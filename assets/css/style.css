@@ -9,6 +9,7 @@
    5. Cabeçalho e navegação
    6. Seção de destaque (banner)
    7. Seção sobre e indicadores
+   8. Seção de serviços
    ========================================================================== */
 
 /* ==========================================================================
@@ -235,6 +236,15 @@ p {
 .js [data-revelar].revelado {
   opacity: 1;
   transform: none;
+}
+
+/* Atraso opcional para que elementos vizinhos apareçam em cascata */
+.js [data-revelar][data-atraso="1"] {
+  transition-delay: 0.12s;
+}
+
+.js [data-revelar][data-atraso="2"] {
+  transition-delay: 0.24s;
 }
 
 /* Etiqueta arredondada usada acima dos títulos das seções */
@@ -1058,5 +1068,168 @@ p {
     padding-top: 32px;
     border-left: none;
     border-top: 1px solid rgba(255, 255, 255, 0.18);
+  }
+}
+
+
+/* ==========================================================================
+   8. SEÇÃO DE SERVIÇOS
+   Grade de cards com proporção fixa na área do ícone (aspect-ratio), para que todos os cards fiquem alinhados independentemente do tamanho do texto.
+   ========================================================================== */
+.servicos__grade {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.servico {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--raio-m);
+  background-color: var(--cor-branco);
+  box-shadow: var(--sombra-suave);
+  transition: transform var(--transicao), box-shadow var(--transicao);
+}
+
+.servico:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--sombra-forte);
+}
+
+/* --- Área do ícone: a proporção 16/9 garante altura igual em todos os cards --- */
+.servico__midia {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  color: var(--cor-branco);
+  font-size: 3.4rem;
+}
+
+.servico__midia i {
+  transition: transform var(--transicao);
+}
+
+.servico:hover .servico__midia i {
+  transform: scale(1.15) rotate(-8deg);
+}
+
+.servico__midia--rosa {
+  background: linear-gradient(135deg, var(--cor-rosa) 0%, var(--cor-rosa-escuro) 100%);
+}
+
+.servico__midia--marrom {
+  background: linear-gradient(135deg, var(--cor-marrom) 0%, var(--cor-marrom-escuro) 100%);
+}
+
+.servico__midia--creme {
+  background: linear-gradient(135deg, var(--cor-creme) 0%, #cbae90 100%);
+  color: var(--cor-marrom-escuro);
+}
+
+/* Selo sobreposto ao canto do card */
+.servico__marcador {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  padding: 5px 14px;
+  border-radius: var(--raio-total);
+  background-color: var(--cor-branco);
+  color: var(--cor-rosa-escuro);
+  font-family: var(--fonte-destaque);
+  font-size: 0.82rem;
+  font-weight: 700;
+  box-shadow: var(--sombra-suave);
+}
+
+/* --- Corpo do card --- */
+.servico__corpo {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 26px 26px 28px;
+}
+
+.servico__titulo {
+  margin-bottom: 8px;
+  color: var(--cor-marrom);
+}
+
+.servico__descricao {
+  font-size: 0.97rem;
+  line-height: 1.6;
+}
+
+.servico__preco {
+  margin: 18px 0 20px;
+  font-size: 0.92rem;
+  color: var(--cor-grafite-suave);
+}
+
+.servico__preco strong {
+  font-family: var(--fonte-destaque);
+  font-size: 1.4rem;
+  color: var(--cor-marrom-escuro);
+}
+
+/* margin-top: auto empurra o link para a base, alinhando todos os cards */
+.servico__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  font-family: var(--fonte-destaque);
+  font-weight: 700;
+  color: var(--cor-rosa-escuro);
+  transition: gap var(--transicao);
+}
+
+.servico__link:hover {
+  gap: 14px;
+}
+
+/* --- Aviso final da seção --- */
+.servicos__aviso {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px 16px;
+  margin-top: 50px;
+  text-align: center;
+  font-size: 1.02rem;
+}
+
+.servicos__aviso i {
+  color: var(--cor-rosa-escuro);
+}
+
+.servicos__aviso a {
+  font-weight: 700;
+  color: var(--cor-rosa-escuro);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* --- 8.1 Responsividade da seção de serviços --- */
+@media (max-width: 980px) {
+
+  .servicos__grade {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 620px) {
+
+  .servicos__grade {
+    grid-template-columns: 1fr;
+  }
+
+  .servico__midia {
+    aspect-ratio: 21 / 9;
+    font-size: 2.9rem;
   }
 }
