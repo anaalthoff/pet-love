@@ -414,6 +414,150 @@
       </div>
     </section>
 
+    <!-- SEÇÃO DE DEPOIMENTOS -->
+    <section class="secao depoimentos" id="depoimentos">
+      <div class="container">
+
+        <header class="secao__cabecalho" data-revelar>
+          <p class="etiqueta">
+            <i class="bi bi-chat-heart-fill" aria-hidden="true"></i>
+            Depoimentos
+          </p>
+          <h2 class="secao__titulo">
+            Quem confia na gente
+            <span class="destaque">volta sempre</span>
+          </h2>
+          <p class="secao__descricao">
+            Histórias de tutores que já passaram pela Pet Love e viraram parte da nossa rotina.
+          </p>
+        </header>
+
+        <!-- Carrossel controlado por JavaScript. Sem o script, os depoimentos aparecem empilhados e o conteúdo continua acessível. -->
+        <div class="carrossel" id="carrossel" data-revelar>
+
+          <div class="carrossel__janela">
+            <ul class="carrossel__trilha" id="carrossel-trilha">
+
+              <li class="carrossel__item">
+                <article class="depoimento">
+                  <i class="bi bi-quote depoimento__aspas" aria-hidden="true"></i>
+                  <p class="depoimento__estrelas" role="img" aria-label="Nota 5 de 5">
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                  </p>
+                  <blockquote class="depoimento__texto">
+                    A Nina tremia só de ver a porta do petshop antigo. Aqui ela entra abanando o rabo. A
+                    secagem sem gaiola mudou completamente a relação dela com o banho.
+                  </blockquote>
+                  <footer class="depoimento__autor">
+                    <span class="depoimento__inicial" aria-hidden="true">C</span>
+                    <span class="depoimento__dados">
+                      <strong>Carla Menezes</strong>
+                      <small>tutora da Nina, shih-tzu</small>
+                    </span>
+                  </footer>
+                </article>
+              </li>
+
+              <li class="carrossel__item">
+                <article class="depoimento">
+                  <i class="bi bi-quote depoimento__aspas" aria-hidden="true"></i>
+                  <p class="depoimento__estrelas" role="img" aria-label="Nota 5 de 5">
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                  </p>
+                  <blockquote class="depoimento__texto">
+                    Cheguei sem hora marcada num sábado, com o Thor em crise alérgica, e encaixaram o
+                    atendimento na hora. No dia seguinte a veterinária ligou para saber como ele estava.
+                  </blockquote>
+                  <footer class="depoimento__autor">
+                    <span class="depoimento__inicial" aria-hidden="true">R</span>
+                    <span class="depoimento__dados">
+                      <strong>Rodrigo Amaral</strong>
+                      <small>tutor do Thor, labrador</small>
+                    </span>
+                  </footer>
+                </article>
+              </li>
+
+              <li class="carrossel__item">
+                <article class="depoimento">
+                  <i class="bi bi-quote depoimento__aspas" aria-hidden="true"></i>
+                  <p class="depoimento__estrelas" role="img" aria-label="Nota 5 de 5">
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                  </p>
+                  <blockquote class="depoimento__texto">
+                    Viajei dez dias e recebi foto da Mel todos os dias no hotelzinho. Ela voltou mais
+                    sociável do que quando deixei. Para quem tem gato desconfiado, isso vale ouro.
+                  </blockquote>
+                  <footer class="depoimento__autor">
+                    <span class="depoimento__inicial" aria-hidden="true">J</span>
+                    <span class="depoimento__dados">
+                      <strong>Juliana Reis</strong>
+                      <small>tutora da Mel, gata sem raça definida</small>
+                    </span>
+                  </footer>
+                </article>
+              </li>
+
+              <li class="carrossel__item">
+                <article class="depoimento">
+                  <i class="bi bi-quote depoimento__aspas" aria-hidden="true"></i>
+                  <p class="depoimento__estrelas" role="img" aria-label="Nota 5 de 5">
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                  </p>
+                  <blockquote class="depoimento__texto">
+                    Uso o táxi pet toda semana porque trabalho fora e não tenho como levar o Bidu. Buscam
+                    no horário combinado e devolvem limpinho, com relatório do que foi feito.
+                  </blockquote>
+                  <footer class="depoimento__autor">
+                    <span class="depoimento__inicial" aria-hidden="true">F</span>
+                    <span class="depoimento__dados">
+                      <strong>Fernanda Luz</strong>
+                      <small>tutora do Bidu, poodle</small>
+                    </span>
+                  </footer>
+                </article>
+              </li>
+
+            </ul>
+          </div>
+
+          <!-- Controles -->
+          <div class="carrossel__controles">
+            <button class="carrossel__seta" id="carrossel-anterior" type="button"
+              aria-label="Ver depoimento anterior" aria-controls="carrossel-trilha">
+              <i class="bi bi-chevron-left" aria-hidden="true"></i>
+            </button>
+
+            <div class="carrossel__pontos" id="carrossel-pontos" role="tablist"
+              aria-label="Escolher depoimento"></div>
+
+            <button class="carrossel__seta" id="carrossel-proximo" type="button"
+              aria-label="Ver próximo depoimento" aria-controls="carrossel-trilha">
+              <i class="bi bi-chevron-right" aria-hidden="true"></i>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
   <script src="assets/js/script.js"></script>
