@@ -460,6 +460,22 @@ p {
 
 
 /* --- 5.1 Responsividade do cabeçalho: abaixo de 900px a navegação vira um painel lateral acionado pelo botão --- */
+/* Entre 901px e 1080px o menu ainda é horizontal, mas com seis itens o espaço fica curto: os intervalos diminuem para tudo caber em uma linha. */
+@media (min-width: 901px) and (max-width: 1080px) {
+
+  .navegacao {
+    gap: 22px;
+  }
+
+  .navegacao__lista {
+    gap: 20px;
+  }
+
+  .navegacao__botao {
+    padding: 11px 18px;
+  }
+}
+
 @media (max-width: 900px) {
 
   :root {
