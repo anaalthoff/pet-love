@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PET LOVE PETSHOP — Folha de estilo principal
+   PET LOVE PETSHOP - Folha de estilo principal
    --------------------------------------------------------------------------
    SUMÁRIO
    1. Variáveis da identidade visual
@@ -13,6 +13,7 @@
    9. Seção de depoimentos (carrossel)
    10. Seção de dúvidas frequentes (acordeão)
    11. Seção de contato e formulário
+   12. Rodapé
    ========================================================================== */
 
 /* ==========================================================================
@@ -1935,5 +1936,191 @@ select.campo__controle {
   .formulario__linha {
     grid-template-columns: 1fr;
     gap: 0;
+  }
+}
+
+
+/* ==========================================================================
+   12. RODAPÉ
+   ========================================================================== */
+.rodape {
+  background-color: var(--cor-grafite);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* --- Faixa de pets acima do rodapé --- */
+
+/* A foto tem fundo branco, então a faixa também é branca e a emenda fica invisível. O line-height zerado tira o espaço que a linha de texto deixaria embaixo da imagem. */
+.rodape__faixa {
+  background-color: var(--cor-branco);
+  line-height: 0;
+  text-align: center;
+}
+
+/* A altura manda na proporção e a largura acompanha sozinha, então a foto nunca é cortada nem esticada */
+.rodape__faixa img {
+  display: inline-block;
+  width: auto;
+  max-width: 100%;
+  height: clamp(140px, 20vw, 280px);
+}
+
+/* --- Miolo do rodapé --- */
+.rodape__conteudo {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 50px;
+  padding-top: 64px;
+  padding-bottom: 52px;
+}
+
+.rodape__descricao {
+  margin: 20px 0 24px;
+  max-width: 380px;
+  font-size: 0.97rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* Ajustes da marca sobre o fundo escuro */
+.marca--rodape .marca__nome {
+  color: var(--cor-branco);
+}
+
+/* --- Redes sociais --- */
+.rodape__redes {
+  display: flex;
+  gap: 12px;
+}
+
+.rodape__redes a {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--raio-total);
+  background-color: rgba(255, 255, 255, 0.10);
+  color: var(--cor-branco);
+  font-size: 1.15rem;
+  transition: transform var(--transicao), background-color var(--transicao);
+}
+
+.rodape__redes a:hover {
+  transform: translateY(-4px);
+  background-color: var(--cor-rosa);
+}
+
+/* --- Colunas de links --- */
+.rodape__navegacao {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.rodape__coluna h3 {
+  margin-bottom: 18px;
+  font-size: 1.15rem;
+  color: var(--cor-branco);
+}
+
+.rodape__coluna li+li {
+  margin-top: 11px;
+}
+
+.rodape__coluna a {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.97rem;
+  transition: color var(--transicao), padding-left var(--transicao);
+}
+
+.rodape__coluna a:hover {
+  padding-left: 6px;
+  color: var(--cor-rosa);
+}
+
+/* Os contatos têm ícone alinhado ao lado do texto */
+.rodape__contatos li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.97rem;
+  line-height: 1.55;
+}
+
+.rodape__contatos i {
+  margin-top: 4px;
+  color: var(--cor-rosa);
+}
+
+/* O deslocamento no hover não se aplica aos links com ícone */
+.rodape__contatos a:hover {
+  padding-left: 0;
+}
+
+/* --- Linha final --- */
+.rodape__base {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding-top: 26px;
+  padding-bottom: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  font-size: 0.9rem;
+}
+
+.rodape__base p {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.rodape__credito strong {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+}
+
+.rodape__topo {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 18px;
+  border-radius: var(--raio-total);
+  background-color: rgba(255, 255, 255, 0.10);
+  color: var(--cor-branco);
+  font-family: var(--fonte-destaque);
+  font-weight: 700;
+  transition: background-color var(--transicao), transform var(--transicao);
+}
+
+.rodape__topo:hover {
+  transform: translateY(-3px);
+  background-color: var(--cor-rosa);
+}
+
+.rodape__topo i {
+  font-size: 1.3rem;
+}
+
+/* --- 12.1 Responsividade do rodapé --- */
+@media (max-width: 900px) {
+
+  .rodape__conteudo {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .rodape__descricao {
+    max-width: none;
+  }
+}
+
+@media (max-width: 620px) {
+
+  .rodape__navegacao {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .rodape__base {
+    justify-content: flex-start;
   }
 }
