@@ -7,6 +7,7 @@
    3. Efeito do cabeçalho ao rolar a página
    4. Animação de entrada dos elementos
    5. Contadores dos indicadores
+   6. Carrossel de depoimentos
    ========================================================================== */
 
 (function () {
@@ -216,6 +217,150 @@
 
 
   /* ========================================================================
+     6. CARROSSEL DE DEPOIMENTOS
+     A trilha é deslocada com transform: translateX em passos de 100%, então o cálculo não depende da largura da tela e continua correto quando a janela é redimensionada. Os pontos de navegação são criados aqui, um para cada depoimento.
+     ======================================================================== */
+  function iniciarCarrossel() {
+    var carrossel = pegar('#carrossel');
+    var trilha = pegar('#carrossel-trilha');
+    var botaoAnterior = pegar('#carrossel-anterior');
+    var botaoProximo = pegar('#carrossel-proximo');
+    var listaPontos = pegar('#carrossel-pontos');
+
+    if (!carrossel || !trilha || !botaoAnterior || !botaoProximo || !listaPontos) {
+      return;
+    }
+
+    var itens = Array.prototype.slice.call(trilha.children);
+
+    if (itens.length === 0) {
+      return;
+    }
+
+    var TEMPO_TROCA = 7000;
+    var DISTANCIA_MINIMA_TOQUE = 50;
+
+    var atual = 0;
+    var relogio = null;
+    var pontos = [];
+    var toqueInicial = null;
+
+    // Quem prefere menos animação no sistema não recebe a troca automática
+    var menosMovimento = window.matchMedia
+      && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /** Cria um ponto de navegação para cada depoimento. */
+    function montarPontos() {
+      itens.forEach(function (item, indice) {
+        var ponto = document.createElement('button');
+
+        ponto.type = 'button';
+        ponto.className = 'carrossel__ponto';
+        ponto.setAttribute('role', 'tab');
+        ponto.setAttribute('aria-label',
+          'Ver depoimento ' + (indice + 1) + ' de ' + itens.length);
+
+        ponto.addEventListener('click', function () {
+          irPara(indice);
+          reiniciarRelogio();
+        });
+
+        listaPontos.appendChild(ponto);
+        pontos.push(ponto);
+      });
+    }
+
+    /** Mostra o depoimento do índice indicado, voltando ao início ao passar do último. */
+    function irPara(indice) {
+      atual = (indice + itens.length) % itens.length;
+
+      trilha.style.transform = 'translateX(-' + (atual * 100) + '%)';
+
+      itens.forEach(function (item, i) {
+        // os depoimentos fora da janela não devem ser lidos por leitores de tela
+        item.setAttribute('aria-hidden', i === atual ? 'false' : 'true');
+      });
+
+      pontos.forEach(function (ponto, i) {
+        ponto.classList.toggle('carrossel__ponto--ativo', i === atual);
+        ponto.setAttribute('aria-selected', i === atual ? 'true' : 'false');
+      });
+    }
+
+    function iniciarRelogio() {
+      if (menosMovimento || relogio !== null) {
+        return;
+      }
+      relogio = window.setInterval(function () {
+        irPara(atual + 1);
+      }, TEMPO_TROCA);
+    }
+
+    function pararRelogio() {
+      window.clearInterval(relogio);
+      relogio = null;
+    }
+
+    /** Zera a contagem depois de uma troca manual, para não trocar logo em seguida. */
+    function reiniciarRelogio() {
+      pararRelogio();
+      iniciarRelogio();
+    }
+
+    botaoAnterior.addEventListener('click', function () {
+      irPara(atual - 1);
+      reiniciarRelogio();
+    });
+
+    botaoProximo.addEventListener('click', function () {
+      irPara(atual + 1);
+      reiniciarRelogio();
+    });
+
+    // A troca automática pausa enquanto o visitante está lendo
+    carrossel.addEventListener('mouseenter', pararRelogio);
+    carrossel.addEventListener('mouseleave', iniciarRelogio);
+    carrossel.addEventListener('focusin', pararRelogio);
+    carrossel.addEventListener('focusout', iniciarRelogio);
+
+    // Setas do teclado quando o carrossel está em foco
+    carrossel.addEventListener('keydown', function (evento) {
+      if (evento.key === 'ArrowLeft') {
+        irPara(atual - 1);
+        reiniciarRelogio();
+      } else if (evento.key === 'ArrowRight') {
+        irPara(atual + 1);
+        reiniciarRelogio();
+      }
+    });
+
+    // Arrastar com o dedo no celular
+    trilha.addEventListener('touchstart', function (evento) {
+      toqueInicial = evento.changedTouches[0].clientX;
+      pararRelogio();
+    }, { passive: true });
+
+    trilha.addEventListener('touchend', function (evento) {
+      if (toqueInicial === null) {
+        return;
+      }
+
+      var distancia = evento.changedTouches[0].clientX - toqueInicial;
+
+      if (Math.abs(distancia) > DISTANCIA_MINIMA_TOQUE) {
+        irPara(distancia < 0 ? atual + 1 : atual - 1);
+      }
+
+      toqueInicial = null;
+      iniciarRelogio();
+    }, { passive: true });
+
+    montarPontos();
+    irPara(0);
+    iniciarRelogio();
+  }
+
+  /* ========================================================================
      INICIALIZAÇÃO
      ======================================================================== */
   document.addEventListener('DOMContentLoaded', function () {
@@ -223,6 +368,8 @@
     iniciarCabecalho();
     iniciarRevelacao();
     iniciarContadores();
+    iniciarCarrossel();
+    iniciarAcordeao();
   });
 
 })();
